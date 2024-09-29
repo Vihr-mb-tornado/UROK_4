@@ -1,5 +1,5 @@
 ﻿from character import Character
-
+from berserk import Berserk
 
 def attack_message(attacker: Character, target: Character, damage_done: float) :
     return f'{attacker.name} атакував {target.name}.\n' \
@@ -8,7 +8,7 @@ def attack_message(attacker: Character, target: Character, damage_done: float) :
 
 
 player1 = Character('Vasya', 100, 10, 25)
-player2 = Character('Petya', 100, 12, 10)
+player2 = Berserk('Petya', 100, 12, 10)
 
 print(f'Створено нового персонажа: {player1.name}')
 print(f'Створено нового персонажа: {player2.name}')
@@ -24,10 +24,3 @@ while player1.health > 0 and player2.health > 0:
     print(attack_message(player2, player1, damage_done))
 
     print(f'{player1}\n{player2}')
-
-'''
-
-    Змінити метод take_damage класу Character таким чином, щоб при захисту більше 100
-    шкода не падала нижче нуля. В такому випадку вона має дорівнювати нулю.
-
-'''
