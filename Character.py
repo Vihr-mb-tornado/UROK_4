@@ -1,13 +1,32 @@
-﻿from character import Character
+﻿import random
 
-playerl = Character('Vasya', 100, 3, 0)
+class Character:
+    name = ''
+    health = 100
+    damage = 1
+    defence = 0
+    damage_offset = 0.2
 
-print(f'Створено нового персонажа: {playerl.name}')
-# print(f'У {player1.name} {player1.health} здоров\'я.')
-player1.show_stats()
+    def __init__(self, name, health, damage, defence):
+        self.name = name
+        self.health = health
+        self.damage = damage
+        self.defence = defence
 
-incoming_damage = 20
-print(f'Ha {player1.name} напали бандити і нанесли {incoming_damage} шкоди.')
-player1.health -= incoming_damage
-pftnt(f'Тепер у {player1.name} {player1.health} здоров\'я.')
-player1.show_stats()
+    def show_stats(self):
+        print(self)
+
+    def __str__(self):
+        return f' -< {self.name} >-\n' \
+               f' Здоров`я: {self.health}\n'\
+               f' Шкода: {self.damage}\n'\
+               f' Захист: {self.defence}\n'
+
+    def take_damage(self, damage):
+        real_damage = round(max(damage * ((100 - self.defence) / 100), 0), 2)
+        self.health = round(max(self.health - real_damage, 0), 2)
+        return real_damage
+
+    def attack(self, target):
+        offset = random.randint(0, int(self.damage * self.damage_offset)) * random.choice((-1, 1))
+        return target.take_damage(self.damage + offset)
